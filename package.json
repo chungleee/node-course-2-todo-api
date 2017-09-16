@@ -4,8 +4,12 @@
   "description": "todo api",
   "main": "app.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "mocha server/**/*.test.js",
     "test-watch": "nodemon --exec 'npm test'"
+  },
+  "engines": {
+    "node": "8.1.0"
   },
   "author": "leon chung",
   "license": "ISC",
