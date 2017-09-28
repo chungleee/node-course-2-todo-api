@@ -121,8 +121,6 @@ app.post('/users', function(req, res) {
     var body = _.pick(req.body, ['email', 'password']);
     var user = new User(body);
 
-
-
     user.save().then(function() {
         return user.generateAuthToken();
     }).then(function(token) {
