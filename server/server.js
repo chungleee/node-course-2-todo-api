@@ -115,6 +115,22 @@ app.patch('/todos/:id', function(req, res) {
 });
 
 
+// POST /users
+app.post('/users', function(req, res) {
+    var body = _.pick(req.body, ['email', 'password']);
+    var user = new User(body);
+
+
+
+    user.save().then(function() {
+        return user.generateAuthToken();
+    }).then(function(token) {
+        res.header('x-auth', token).send(user);
+    }).catch(function(err) {
+        res.status(400).send(err);
+    })
+});
+
 
 // ***SERVER***
 app.listen(port, function() {
