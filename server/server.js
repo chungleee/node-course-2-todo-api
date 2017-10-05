@@ -134,6 +134,18 @@ app.get('/users/me',authenticate, function(req, res) {
     res.send(req.user);
 });
 
+// POST /users/me/login {email, password}
+app.post('/users/login', function(req, res) {
+    var body = _.pick(req.body, ['email', 'password']);
+
+    User.findByCredentials(body.email, body.password).then(function(user) {
+        return user.generateAuthToken().then(function(token) {
+            res.header('x-auth', token).send(user);
+        })
+    }).catch(function(err) {
+        res.status(400).send();
+    })
+});
 
 // ***SERVER***
 app.listen(port, function() {
