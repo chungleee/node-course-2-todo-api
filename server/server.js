@@ -147,6 +147,14 @@ app.post('/users/login', function(req, res) {
     })
 });
 
+app.delete('/users/me/token', authenticate, function(req, res) {
+    req.user.removeToken(req.token).then(function() {
+        res.status(200).send();
+    }, function() {
+        res.status(400).send();
+    });
+});
+
 // ***SERVER***
 app.listen(port, function() {
     console.log(`Started up at port ${port}`);
